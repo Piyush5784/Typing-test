@@ -5,59 +5,60 @@ const mistakes = document.querySelector(".mistake span");
 const wpm = document.querySelector(".wpm span");
 const cpm = document.querySelector(".cpm span");
 const btn = document.querySelector("button");
+const selectedOption = document.getElementById("text-options");
 
 //set values
 
+let options = "Quotes";
+let quotes = true;
 let timer;
 let charIndex = 0;
 let misTake = 0;
 let isTyping = false;
 
-// Calculate time based on text length (approximately 1 minute per 250 characters)
-function calculateTime(text) {
-  const baseCharsPerMinute = 250;
-  return Math.max(30, Math.ceil((text.length / baseCharsPerMinute) * 60));
+selectedOption.addEventListener("change", (event) => {
+  options = event.target.value;
+  changePara();
+  reset();
+});
+
+let paragraphs = [
+  "The only limit to our realization of tomorrow is our doubts of today",
+  "The future belongs to those who believe in the beauty of their dreams",
+  "Do not watch the clock. Do what it does. Keep going",
+  "Keep your face always toward the sunshine—and shadows will fall behind you",
+  "The best way to predict the future is to invent it",
+];
+function changePara() {
+  if (options == "Paragraph") {
+    paragraphs = [
+      "In the heart of the bustling city, there was a small, quaint bookstore that had stood the test of time. It was a place where the scent of old books mingled with the aroma of freshly brewed coffee, creating an atmosphere that was both nostalgic and inviting. The shelves were lined with volumes of all shapes and sizes, each one holding a story waiting to be discovered. The owner, an elderly gentleman with a passion for literature, had dedicated his life to curating a collection that spanned genres and generations. He believed that every book had the power to transport its reader to another world, and he took great pride in helping his customers find the perfect escape.",
+      "As the sun set over the horizon, casting a golden glow across the landscape, the village came alive with the sounds of evening. Children played in the streets, their laughter echoing through the air, while the adults gathered in the town square to share stories and news of the day. The smell of home-cooked meals wafted from open windows, and the soft hum of conversation filled the air. It was a place where everyone knew each other, and a sense of community and belonging was woven into the fabric of daily life. In this village, time seemed to slow down, allowing its inhabitants to savor the simple pleasures of life.",
+      "Deep in the forest, where the trees stood tall and the underbrush was thick, there was a hidden clearing that few had ever seen. It was a place of tranquility and beauty, where the sunlight filtered through the leaves, casting dappled shadows on the ground. Wildflowers bloomed in a riot of colors, and a gentle stream meandered through the clearing, its waters sparkling in the light. The air was filled with the sounds of nature, from the chirping of birds to the rustle of leaves in the breeze. It was a sanctuary, a place where one could escape the hustle and bustle of the outside world and find peace in the embrace of nature.",
+      "In a time long past, in a kingdom far away, there was a castle that stood atop a hill, overlooking the land below. It was a grand and imposing structure, with towering walls and turrets that reached towards the sky. The castle was home to a wise and benevolent king, who ruled with fairness and compassion. Under his reign, the kingdom prospered, and its people lived in harmony. The castle was a place of great activity, with courtiers and servants bustling about, and the sounds of music and laughter filling the halls. It was a place where dreams were born and adventures began, and where the stories of old came to life.",
+      "On the edge of the vast desert, where the sands stretched as far as the eye could see, there was an oasis that offered respite to weary travelers. It was a place of lush greenery and cool, clear water, a stark contrast to the harsh, arid landscape that surrounded it. Palm trees swayed gently in the breeze, and the air was filled with the scent of blooming flowers. The oasis was a haven, a place where one could rest and rejuvenate before continuing their journey. It was a reminder that even in the most inhospitable of environments, there could be pockets of beauty and life.",
+    ];
+  } else {
+    paragraphs = [
+      "The only limit to our realization of tomorrow is our doubts of today",
+      "The future belongs to those who believe in the beauty of their dreams",
+      "Do not watch the clock. Do what it does. Keep going",
+      "Keep your face always toward the sunshine—and shadows will fall behind you",
+      "The best way to predict the future is to invent it",
+    ];
+  }
 }
 
-let maxTime = 60; // Default value, will be updated when text loads
-let timeLeft = maxTime;
+function getTime() {
+  console.log(options);
+  return options === "Quotes" ? 20 : 300;
+}
 
+let maxTime = getTime(); // Default value, will be updated when text loads
+let timeLeft = maxTime;
 //handle user input
 
 function loadParagraph() {
-  const paragraphs = [
-    "The quick brown fox jumps over the lazy dog and runs through the meadow",
-    "Learning to type quickly and accurately is an essential skill in today's digital world",
-    "Practice makes perfect when it comes to improving your typing speed and accuracy",
-    "Focus on maintaining good posture and finger positioning while typing",
-    "Regular typing practice can help you become more efficient in your daily tasks",
-    "A diverse vocabulary enhances both written and spoken communication skills",
-    "Success is not final, failure is not fatal; it is the courage to continue that counts",
-    "Technology continues to evolve and shape the way we interact with the world",
-    "Efficient time management is crucial for achieving your personal and professional goals",
-    "Innovation drives progress and opens new possibilities for human advancement",
-    "Creativity flourishes in an environment that encourages exploration and experimentation.",
-    "Knowledge is power, and continuous learning leads to personal growth",
-    "Persistence and determination are key factors in overcoming challenges",
-    "Clear communication helps build strong relationships and mutual understanding.",
-    "Quality work requires attention to detail and dedication to excellence",
-    "Adaptability is essential in today's rapidly changing business environment",
-    "Critical thinking skills enable better decision-making and problem-solving",
-    "Collaboration and teamwork can lead to remarkable achievements",
-    "Setting clear goals helps maintain focus and track progress effectively",
-    "Professional development requires ongoing commitment to learning new skills",
-    "Digital literacy is becoming increasingly important in modern society",
-    "Effective leadership involves inspiring and empowering others to succeed",
-    "Time spent practicing is never wasted when developing new abilities",
-    "Organization and planning contribute to increased productivity",
-    "Success often comes to those who are willing to put in the extra effort",
-    "Building good habits takes time but yields long-term benefits",
-    "Networking opens doors to new opportunities and collaborations",
-    "Innovation often emerges from challenging conventional wisdom",
-    "Continuous improvement leads to mastery in any field of endeavor",
-    "Effective communication is the foundation of successful relationships",
-    "Learning from mistakes is essential for personal and professional growth",
-  ];
   const ranIndex = Math.floor(Math.random() * paragraphs.length);
   typingText.innerHTML = "";
   for (let char of paragraphs[ranIndex]) {
@@ -66,7 +67,7 @@ function loadParagraph() {
   typingText.querySelectorAll("span")[0].classList.add("active");
   document.addEventListener("keydown", () => input.focus());
 
-  timeLeft = calculateTime(typingText.innerText);
+  timeLeft = getTime();
   typingText.addEventListener("click", () => input.focus());
 }
 
@@ -115,7 +116,7 @@ function initTime() {
     time.innerText = timeLeft;
     wpm.innerText = Math.round(
       timeLeft < maxTime
-        ? ((charIndex - misTake) / 5 / (maxTime - timeLeft)) * 60
+        ? (charIndex - misTake) / 5 / ((maxTime - timeLeft) / 60)
         : 0
     );
   } else {
@@ -129,7 +130,7 @@ btn.addEventListener("click", reset);
 function reset() {
   loadParagraph();
   clearInterval(timer);
-  maxTime = 60;
+  maxTime = getTime();
   timeLeft = maxTime;
   time.innerText = timeLeft;
   input.value = "";

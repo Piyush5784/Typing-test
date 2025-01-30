@@ -19,7 +19,19 @@ body {
   padding: 0 10px;
   align-items: center;
   justify-content: center;
-  background: plum;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    90deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+#text-options {
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 5px;
 }
 
 .wrapper {
@@ -87,7 +99,7 @@ body {
   color: white;
   padding: 8px 10px;
   cursor: pointer;
-  background: purple;
+  background: rgba(9, 9, 121, 1);
   border-radius: 5px;
   transition: 0.3ms ease;
 }
