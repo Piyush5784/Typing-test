@@ -16,9 +16,9 @@
 body {
   min-height: 100vh;
   display: flex;
-  padding: 0 10px;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
   background: rgb(2, 0, 36);
   background: linear-gradient(
     90deg,
@@ -78,9 +78,13 @@ body {
 .typing-text p span {
   position: relative;
 }
-
+.madeby {
+  position: absolute;
+  bottom: 0;
+  color: white;
+}
 .typing-text p span.active {
-  color: purple;
+  color: rgb(97, 118, 255);
 }
 
 .typing-text p span.correct {
@@ -110,7 +114,7 @@ body {
 
 ::selection {
   color: #fff;
-  background: plum;
+  background: rgb(97, 118, 255);
 }
 
 .wrapper .input-field {
