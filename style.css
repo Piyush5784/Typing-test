@@ -81,7 +81,7 @@ body {
 .madeby {
   position: absolute;
   bottom: 0;
-  color: white;
+  padding-bottom: 10px;
 }
 .typing-text p span.active {
   color: rgb(97, 118, 255);
@@ -90,7 +90,9 @@ body {
 .typing-text p span.correct {
   color: green;
 }
-
+.link {
+  color: rgb(178, 211, 255);
+}
 .typing-text p span.incorrect {
   color: red;
   background: #ffc0cb;
