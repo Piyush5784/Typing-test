@@ -43,7 +43,7 @@ function changePara() {
       "The only limit to our realization of tomorrow is our doubts of today",
       "The future belongs to those who believe in the beauty of their dreams",
       "Do not watch the clock. Do what it does. Keep going",
-      "Keep your face always toward the sunshine—and shadows will fall behind you",
+      "Keep your face always toward the sunshine and shadows will fall behind you",
       "The best way to predict the future is to invent it",
     ];
   }
